@@ -38,6 +38,8 @@ module RedmineIssueChecklist
         issue = context[:issue]
         checklist_items = context[:params] && context[:params][:check_list_items]
         issue.update_checklist_items(checklist_items, create_journal) if issue && checklist_items
+        done_checklist = issue.checklist.map{|c| c.is_done ? 1 : 0}
+        issue.done_ratio = (done_checklist.count(1) * 10) / done_checklist.count * 10
       end
 
     end
