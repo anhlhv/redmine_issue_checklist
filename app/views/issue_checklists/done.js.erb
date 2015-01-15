@@ -1,1 +1,8 @@
-$("#checklist_item_<%= @checklist_item.id %>").toggleClass('is-done-checklist-item')
+$("#checklist_item_<%= @checklist_item.id %>").toggleClass('is-done-checklist-item');
+var done_ratio = <%= @checklist_item.issue.done_ratio %>;
+if ($(".progress .closed").length == 0 && done_ratio > 0) {
+  $(".progress .progress tr").prepend('<td class="closed"></td>');
+}
+$(".progress .closed").width(done_ratio + '%');
+$(".progress .todo").width(100 - done_ratio +'%');
+$(".progress .percent").text(done_ratio + '%');
